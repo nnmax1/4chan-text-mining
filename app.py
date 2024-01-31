@@ -10,7 +10,7 @@ from sentiment_analysis import mostPositiveNegativePosts
 
 app = Flask(__name__)
 
-DATABASE_FILE = 'new.db'
+DATABASE_FILE = 'data.db'
 
 
 @app.route('/')
@@ -32,9 +32,7 @@ def mostPosOrNegPosts(pos):
 		data=mostPositiveNegativePosts(DATABASE_FILE,pos)
 		max=len(data)
 		return render_template('posts.html',posts=data, max=max,board=pos,pagetype='sentdata')
-	#else:
 	return redirect('/')
-
 	#return jsonify(data)
 
 

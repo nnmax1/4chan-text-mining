@@ -1,7 +1,7 @@
 #  4chan text mining
 
-<p> Webscraper + basic text mining. Included is a 4chan captcha solver that uses /p>
-<h2>Dataset: </h2>
+<p> Webscraper + basic text mining.</p>
+<h2>The dataset is uploaded to Kaggle as well</h2>
 <a href='https://www.kaggle.com/datasets/discordspy/4chan-posts-from-all-boards-20645-posts'>https://www.kaggle.com/datasets/discordspy/4chan-posts-from-all-boards-20645-posts</a>
 <br>
 <h2>Run webserver (basic web gui)</h2>
