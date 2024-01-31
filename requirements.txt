@@ -1,0 +1,11 @@
+requests
+numpy
+scikit-learn
+flask
+pandas
+matplotlib
+nltk
+torchtext
+seaborn
+WordCloud
+vaderSentiment

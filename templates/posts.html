@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{%block title%}{{board}}{%endblock%}
+
+{%block main_content%}
+	{% if pagetype== 'data' %}
+	<h1>Posts from: {{board}}</h1>
+	{% elif pagetype == 'sentdata' %}
+	{% if board == 'neg' %}
+	<h1>Most Negative</h1>
+	{% else %}
+	<h1>Most Positive</h1>
+	{% endif %}
+	{% endif %}
+	<div class="row">
+		<div class="span12">
+
+				{% if pagetype == 'sentdata' %}
+			    {% for i in range(max) %}
+				{% if i % 2 == 0 %}
+				<p style="background-color: #fff698">{{ posts[i] }}</p>
+				{% else  %}
+				<p style="background-color: #92ff6a">{{ posts[i] }}</p>
+				{% endif %}
+				{% endfor %}
+				
+				{% elif pagetype=='data' %}
+			    
+				{% for i in range(max) %}
+                    {% if i % 2 == 0 %}
+					<p style="background-color: #fff698">{{ posts[i][2] }}</p>
+                    {% else  %}
+                    <p style="background-color: #92ff6a">{{ posts[i][2] }}</p>
+                    {% endif %}
+			    {% endfor %}
+
+				{% endif %}
+
+		</div>
+	</div>
+
+{%endblock%}

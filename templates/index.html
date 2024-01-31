@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{%block title%}home{%endblock%}
+
+{%block main_content%}
+	<div class="row">
+		<div class="col-md-4">
+        <center>
+            <h1>  <a href='/wordFrequency'> Most Frequent words in database</a></h1>
+            <img style='height:70%; width:60%;' src="/image?filename=wordcloud">
+            <br>
+            <img style='height:70%; width:60%;' src="/image?filename=word_freq_bar">
+            <br>
+            <img style='height:70%; width:60%;' src="/image?filename=word_freq_pie">            
+            <br>
+            <img style='height:70%; width:60%;' src="/image?filename=sentiment_bar">            
+            <h2>
+                Most positive and negative posts: <br>
+                <a href="/most/pos/posts">/most/pos/posts</a><br>
+                <a href="/most/neg/posts">/most/neg/posts</a>
+
+            </h2>
+        </center>
+        <h1>Dataset (total posts:{{data['total_posts']}})</h1>
+        <ul>
+            {% for i in range(max)  %}
+            <li><a href={{'/data/'+data['data'][i]['board']}}>Data for /{{data['data'][i]['board']}}/: {{data['data'][i]['count']}}  posts</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+ 
+	</div>
+
+{%endblock%}
