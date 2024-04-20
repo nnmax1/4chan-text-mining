@@ -19,10 +19,30 @@ class DataAPI():
         cleantext = reply_tag_pattern.sub('', cleantext)
         cleantext = html.unescape(cleantext)
         cleantext=url_pattern.sub('',cleantext)
+        chanpattern = r'&gt;&gt;\d{8}'
+        cleantext=cleantext.replace("&#039;" ,"'")
+        cleantext = re.sub(chanpattern, '', cleantext)
         return cleantext
 
    
     def getPosts(self,board):
+        posts=[]
+        url='https://a.4cdn.org/'+board+'/catalog.json'
+        data=requests.get(url).json()
+        for d in data:
+            for thrd in d['threads']:
+                thread_url='https://a.4cdn.org/'+board+'/thread/'+str(thrd['no'])+'.json'
+                #print(thread_url)
+                post_data=requests.get(thread_url).json()
+                for p in post_data['posts']: 
+                    if 'com' in p: 
+                        if 'capcode' not in p:
+                            print(p['no'])
+                            posts.append(p)
+                            #time.sleep(2)
+                time.sleep(2)
+        print('posts scraped from ', board)
+        '''
         for idx in range(1, 10):
             url = 'https://a.4cdn.org/'+board+'/'+str(idx)+'.json'
             data = requests.get(url).json()
@@ -30,7 +50,8 @@ class DataAPI():
             for thrd in data['threads']:
                 for post in thrd['posts']:
                     if 'capcode' not in post:
-                        posts.append(post)                
+                        posts.append(post)                        
+        '''
         return posts
     # add table to database where table name is the board name
     def addTableToDB(self,table_name):
@@ -50,6 +71,7 @@ class DataAPI():
                 text=self.cleantext(text)
                 if len(text)> 3:
                     entry= (d['no'],d['now'],text)
+                    print(d['no'])
                     dataentries.append(entry)
         cur.executemany("INSERT INTO "+table_name+" VALUES(?, ?, ?)", dataentries)
         con.commit() 
@@ -104,7 +126,6 @@ class DataAPI():
     # add tables to db and add dataentries to db
     def createDatabase(self):  
         self.initDB()
-        # get posts and save to  try to get 100K posts in database
         self.writeData()
         self.databaseCounter() #check no. of posts in each table
 
@@ -128,16 +149,18 @@ class DataAPI():
 
 # to add new data to dataset
 DataAPI('data.db').databaseCounter()
+DataAPI('data.db').writeData()
+DataAPI('data.db').removeDuplicates('new.db')
+DataAPI('new.db').databaseCounter()
+
+
+
+
+ 
+ 
+ 
+
+#posts=DataAPI('data.db').getPosts('gif')
+
 #p=DataAPI('data.db').retrieveData()[0]['data'][0]
 #print(p)
-#DataAPI('data.db').writeData()
-#DataAPI('data.db').removeDuplicates('new.db')
-#DataAPI('new.db').databaseCounter()
-
-
-
-
- 
- 
- 
-

@@ -56,7 +56,7 @@ def getSentimentDataset(db_name):
 def sentimenetBarChart(db_name):
     dataset=getSentimentDataset(db_name)
     result = dataset["sentiment"].value_counts()
-    result.plot(kind="bar", rot=0, color=["plum","cyan"]);
+    result.plot(kind="bar", rot=0, color=["plum","cyan"])
     # no. of posts w/ pos sent. and no. posts w/ neg sent.
     posts_sentiment_counts=dataset.groupby("sentiment")["text"].count()
     print(posts_sentiment_counts)

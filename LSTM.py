@@ -1,5 +1,4 @@
-#LSTM-based model for text generation
-
+# text generation model
 
 import re
 import csv
